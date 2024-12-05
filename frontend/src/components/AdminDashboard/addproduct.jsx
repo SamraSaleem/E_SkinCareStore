@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"; // Importing Link here
 import './admin.css'; // Assuming the same styles are used for both pages
+import Footer from "../auth/Footer";
 
 const AddProduct = () => {
   const [productData, setProductData] = useState({
@@ -65,6 +66,17 @@ const AddProduct = () => {
       console.log('Product added successfully', response.data);
       setMessage("Product added successfully!");
       setError(""); // Clear any errors
+      // Reset the form after 5 seconds
+      setTimeout(() => {
+        setProductData({
+          name: "",
+          description: "",
+          price: "",
+          category: "",
+          stock: "",
+          image: "",
+        });
+      }, 5000); // Clear the form after 5 seconds
     } catch (error) {
       console.error(error);
       setError("Error uploading product.");
@@ -79,12 +91,14 @@ const AddProduct = () => {
       <header className="admin-header">
         <div className="logo">SAM E-GlowCo Admin</div>
         <nav>
-          <ul className="admin-nav-list">
-          <li><Link to="/admin-dashboard" className="admin-nav-link">Dashboard</Link></li>
+        <ul className="admin-nav-list">
+            <li><Link to="/admin-dashboard" className="admin-nav-link">Dashboard</Link></li>
             <li><Link to="/product_manage" className="admin-nav-link">Manage Products</Link></li>
-            <li><Link to="/manage-orders" className="admin-nav-link">Manage Orders</Link></li>
-            <li><Link to="/view-orders" className="admin-nav-link">Manage Transactions</Link></li>
-            <li><Link to="/admin-profile" className="admin-nav-link">Analytics</Link></li>
+            <li><Link to="/order_manage" className="admin-nav-link">Manage Orders</Link></li>
+            <li><Link to="/transaction_manage" className="admin-nav-link">Manage Transactions</Link></li>
+            <li><Link to="/analytics" className="admin-nav-link">Analytics</Link></li>
+            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
+            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
           </ul>
         </nav>
       </header>
@@ -112,16 +126,7 @@ const AddProduct = () => {
               required
             ></textarea>
           </div>
-          <div>
-            <label>Price:</label>
-            <input
-              type="number"
-              name="price"
-              value={productData.price}
-              onChange={handleChange}
-              required
-            />
-          </div>
+         
           <div>
             <label>Category:</label>
             <select
@@ -137,6 +142,16 @@ const AddProduct = () => {
               <option value="facewash">Facewash</option>
               <option value="sunscreen">Sunscreen</option>
             </select>
+          </div>
+          <div>
+            <label>Price:</label>
+            <input
+              type="number"
+              name="price"
+              value={productData.price}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div>
             <label>Stock:</label>
@@ -163,14 +178,7 @@ const AddProduct = () => {
       </main>
 
       {/* Footer */}
-      <footer className="footer">
-        <p className="footer-text">© 2024 SAM E-GlowCo. All Rights Reserved.</p>
-        <div className="group-members">
-          <span>Samra Saleem</span>
-          <span>Muskan Tariq</span>
-          <span>Amna Hassan</span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

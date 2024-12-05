@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./admin.css";
 import Footer from "../auth/Footer";
-const ProductManagement = () => {
+const OrderManagement = () => {
   return (
     <div className="home-container">
       {/* Header */}
@@ -15,21 +15,20 @@ const ProductManagement = () => {
             <li><Link to="/order_manage" className="admin-nav-link">Manage Orders</Link></li>
             <li><Link to="/transaction_manage" className="admin-nav-link">Manage Transactions</Link></li>
             <li><Link to="/analytics" className="admin-nav-link">Analytics</Link></li>
-            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
-            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
-            
+            <li><Link to="/about" className="admin-nav-link">About Us</Link></li>
+            <li><Link to="/contact" className="admin-nav-link">Contact</Link></li>
           </ul>
         </nav>
       </header>
 
       {/* Main Content */}
       <main className="main-content">
-        <h1 className="main-title">Manage Products</h1>
+        <h1 className="main-title">Manage Orders</h1>
         <div className="manage-options">
-          <Link to="/view-product" className="manage-option-btn">View products</Link>
-          <Link to="/add-product" className="manage-option-btn">Add products</Link>
-          <Link to="/update-product" className="manage-option-btn">Update products</Link>
-          <Link to="/delete-product" className="manage-option-btn">Delete products</Link>
+          <Link to="/view_order" className="manage-option-btn">View Orders</Link>
+          <Link to="/order_status" className="manage-option-btn">Order Status Management</Link>
+          <Link to="/refund_management" className="manage-option-btn">Refund Management</Link>
+          <Link to="/refund_reports" className="manage-option-btn">Refund Reports</Link>
         </div>
       </main>
 
@@ -40,4 +39,4 @@ const ProductManagement = () => {
   );
 };
 
-export default ProductManagement;
+export default OrderManagement;
