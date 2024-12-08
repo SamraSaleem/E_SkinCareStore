@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebookF, FaInstagram, FaYoutube, FaEnvelope, FaPhone, FaClock } from 'react-icons/fa';
+import { FaInstagram, FaYoutube, FaEnvelope, FaPhone, FaClock } from 'react-icons/fa';
 
 const Footer = () => {
   // Create a mapping object for the links and their corresponding routes
