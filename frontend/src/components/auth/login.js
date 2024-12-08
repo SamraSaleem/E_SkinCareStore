@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './auth.css';
-import Footer from './Footer';
+import Footer from '../AdminDashboard/Footer';
+import HomeHeader from './homeHeader';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,7 +12,7 @@ const Login = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showSystemPassword, setShowSystemPassword] = useState(false);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
@@ -33,11 +34,9 @@ const Login = () => {
       const { role } = user;
 
       if (role === 'admin') {
-        // For admin, show system password verification
         setShowAdminVerification(true);
         setSuccessMessage('Please enter system password for admin verification');
       } else {
-        // For non-admin users, proceed with normal login
         localStorage.setItem('token', token);
         setSuccessMessage('Login successful! Redirecting...');
         setTimeout(() => {
@@ -75,24 +74,22 @@ const Login = () => {
 
   return (
     <div className="home-container">
-      <header className="header">
-        <div className="logo">SAM E-GlowCo</div>
-        <nav>
-          <ul className="nav-list">
-            <li><a href="/" className="nav-link">Home</a></li>
-            <li><a href="/register" className="nav-link">Register</a></li>
-            <li><a href="/login" className="nav-link">Login</a></li>
-            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
-            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
-          </ul>
-        </nav>
-      </header>
+      <HomeHeader />
 
-      <main className="main-content">
+      <main style={{ 
+        color: '#ef80ae', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        marginTop: '3rem', 
+        marginBottom: '5rem',
+        width: '100%',
+        maxWidth: '500px',
+        margin: '3rem auto 5rem'
+      }}>
         <h1>Login</h1>
         
         {!showAdminVerification ? (
-          // Regular login form
           <form onSubmit={handleSubmit}>
             <input 
               type="email" 
@@ -100,6 +97,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)} 
               placeholder="Email" 
               required 
+              style={{ border: '2px solid #ef80ae', color: email ? 'black' : '#999' }}
             />
             <div className="password-input-container">
               <input 
@@ -108,24 +106,25 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)} 
                 placeholder="Password" 
                 required 
+                style={{ border: '2px solid #ef80ae', color: password ? 'black' : '#999' }}
               />
               <button 
                 type="button"
                 className="password-toggle"
                 onClick={(e) => {
-                  e.preventDefault(); // Prevent form submission
-                  e.stopPropagation(); // Prevent event bubbling
+                  e.preventDefault();
+                  e.stopPropagation();
                   setShowPassword(!showPassword);
                 }}
-                tabIndex="-1" // Remove from tab order
+                tabIndex="-1"
+                style={{ backgroundColor: 'transparent', border: 'none' }}
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" style={{ backgroundColor: '#ef80ae' }}>Login</button>
           </form>
         ) : (
-          // Admin verification form
           <div className="admin-verification">
             <h2>Admin Verification</h2>
             <p>Please enter the system password to access admin dashboard:</p>
@@ -136,18 +135,26 @@ const Login = () => {
                 onChange={(e) => setSystemPassword(e.target.value)}
                 placeholder="System Password"
                 className="system-password-input"
+                style={{ border: '2px solid #ef80ae', color: systemPassword ? 'black' : '#999' }}
               />
               <button 
                 type="button"
                 className="password-toggle"
                 onClick={() => setShowSystemPassword(!showSystemPassword)}
+                style={{ backgroundColor: 'transparent', border: 'none' }}
               >
                 {showSystemPassword ? <FaEyeSlash /> : <FaEye />}
               </button>
             </div>
             <div className="verification-buttons">
-              <button onClick={handleAdminVerification}>Verify</button>
-              <button onClick={() => setShowAdminVerification(false)} className="cancel-btn">
+              <button onClick={handleAdminVerification} style={{ backgroundColor: '#ef80ae' }}>
+                Verify
+              </button>
+              <button 
+                onClick={() => setShowAdminVerification(false)} 
+                className="cancel-btn" 
+                style={{ backgroundColor: '#ef80ae' }}
+              >
                 Cancel
               </button>
             </div>
@@ -158,7 +165,6 @@ const Login = () => {
         {errorMessage && <p className="error-message">{errorMessage}</p>}
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

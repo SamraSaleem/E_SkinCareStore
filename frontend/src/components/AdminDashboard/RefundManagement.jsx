@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+
 import './admin.css';
 import io from 'socket.io-client';
-import Footer from '../auth/Footer';
+import Footer from './Footer';
+import Header from './Header';
+
 const RefundManagement = () => {
   const [refundRequests, setRefundRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -84,99 +86,95 @@ const RefundManagement = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div style={{color: '#000'}}>Loading...</div>;
+  if (error) return <div style={{color: '#000'}}>{error}</div>;
 
   return (
     <div className="home-container">
-      <header className="admin-header">
-        <div className="logo">SAM E-GlowCo Admin</div>
-        <nav>
-          <ul className="admin-nav-list">
-            <li><Link to="/admin-dashboard" className="admin-nav-link">Dashboard</Link></li>
-            <li><Link to="/product_manage" className="admin-nav-link">Manage Products</Link></li>
-            <li><Link to="/order_manage" className="admin-nav-link">Manage Orders</Link></li>
-            <li><Link to="/transaction_manage" className="admin-nav-link">Manage Transactions</Link></li>
-            <li><Link to="/analytics" className="admin-nav-link">Analytics</Link></li>
-            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
-            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
 
-      <main className="main-content">
-        <h1 className="page-title">Refund Request Management</h1>
+      <main className="main-content" style={{color: '#000'}}>
+        <div style={{ 
+          position: 'relative',
+          width: '100%',
+          marginBottom: '30px',
+          textAlign: 'center'
+        }}>
+          <h1 className="page-title">Refund Request Management</h1>
+        </div>
 
         {notification && (
-          <div className="notification">
-            {notification}
-          </div>
+          <div className="notification">{notification}</div>
         )}
 
-        <div className="refund-requests-container">
-          {refundRequests.length === 0 ? (
-            <p>No refund requests found.</p>
-          ) : (
-            refundRequests.map((request) => (
-              <div key={request._id} className="refund-request-card">
-                <div className="request-header">
-                  <h3>Order ID: {request.orderID}</h3>
-                  <span className={`status-badge ${request.refundStatus.toLowerCase()}`}>
-                    {request.refundStatus}
-                  </span>
-                </div>
-
-                <div className="request-details">
-                  <p><strong>Customer:</strong> {request.user.name}</p>
-                  <p><strong>Order Total:</strong> ${request.totalPrice.toFixed(2)}</p>
-                  <p><strong>Refund Reason:</strong> {request.refundReason}</p>
-                  <p><strong>Request Date:</strong> {new Date(request.refundRequestedAt).toLocaleDateString()}</p>
-                </div>
-
-                {request.refundStatus === 'Requested' && (
-                  <div className="refund-actions">
-                    <input
-                      type="number"
-                      placeholder="Refund Amount"
-                      className="refund-amount-input"
-                      id={`refund-amount-${request._id}`}
-                      max={request.totalPrice}
-                    />
-                    <button
-                      onClick={() => {
-                        const amount = document.getElementById(`refund-amount-${request._id}`).value;
-                        handleRefundAction(request._id, 'approve', parseFloat(amount));
-                      }}
-                      className="approve-btn"
-                    >
-                      Approve Refund
-                    </button>
-                    <button
-                      onClick={() => handleRefundAction(request._id, 'reject')}
-                      className="reject-btn"
-                    >
-                      Reject Refund
-                    </button>
-                  </div>
-                )}
-
-                {request.refundStatus === 'Approved' && !request.isRefunded && (
-                  <div className="refund-actions">
-                    <button
-                      onClick={() => handleRefundAction(request._id, 'process')}
-                      className="process-btn"
-                    >
-                      Process Refund
-                    </button>
-                  </div>
-                )}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '20px',
+          padding: '20px',
+          width: '100%'
+        }}>
+          {refundRequests.map((request) => (
+            <div key={request._id} className="refund-request-card" style={{
+              width: '100%',
+              margin: '0'
+            }}>
+              <div className="request-header">
+                <h3>Order ID: {request.orderID}</h3>
+                <span className={`status-badge ${request.refundStatus.toLowerCase()}`}>
+                  {request.refundStatus}
+                </span>
               </div>
-            ))
-          )}
+
+              <div className="request-details">
+                <p><strong>Customer:</strong> {request.user.name}</p>
+                <p><strong>Order Total:</strong> ${request.totalPrice.toFixed(2)}</p>
+                <p><strong>Refund Reason:</strong> {request.refundReason}</p>
+                <p><strong>Request Date:</strong> {new Date(request.refundRequestedAt).toLocaleDateString()}</p>
+              </div>
+
+              {request.refundStatus === 'Requested' && (
+                <div className="request-actions">
+                  <input
+                    type="number"
+                    placeholder="Refund Amount"
+                    className="refund-amount-input"
+                    id={`refund-amount-${request._id}`}
+                    max={request.totalPrice}
+                  />
+                  <button
+                    onClick={() => {
+                      const amount = document.getElementById(`refund-amount-${request._id}`).value;
+                      handleRefundAction(request._id, 'approve', parseFloat(amount));
+                    }}
+                    className="approve-btn"
+                  >
+                    Approve Refund
+                  </button>
+                  <button
+                    onClick={() => handleRefundAction(request._id, 'reject')}
+                    className="reject-btn"
+                  >
+                    Reject Refund
+                  </button>
+                </div>
+              )}
+
+              {request.refundStatus === 'Approved' && !request.isRefunded && (
+                <div className="request-actions">
+                  <button
+                    onClick={() => handleRefundAction(request._id, 'process')}
+                    className="process-btn"
+                  >
+                    Process Refund
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </main>
 
-      
       <Footer />
     </div>
   );

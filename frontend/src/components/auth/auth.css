@@ -20,93 +20,12 @@ html, body {
     min-height: 100vh; /* Ensures the container spans at least the full height of the screen */
     width: 100%; /* Ensures the container spans the full width of the screen */
     background-color: #f9f9f9; /* Light background color for a clean, soothing look */
-}
-
-/* Header style */
-.header {
-    background-color: #e83e8c;  /* Soft teal color for a calming feel */
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* Ensures the header spans the full width */
-}
-
-/* Logo style */
-.logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
-}
-
-/* Navigation list styling */
-.nav-list {
-    list-style-type: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-list li {
-    margin: 0 15px;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: #96d6e6;  /* Soft pink color on hover for a gentle touch */
-}
-
-/* Hero section style */
-
-.hero-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover; /* Ensures the image maintains aspect ratio */
-    position: absolute; /* Positioning the image inside the hero section */
-    top: 0;
-    left: 0;
-    z-index: -1; /* Ensures the image stays behind any other content */
-}
-
-
-.hero h1 {
-    font-size: 48px;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-/* Main content styling */
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f4f4; /* Soft background color for content */
-    text-align: center;
-    padding: 40px;
-    width: 100%;
-}
-
-.main-content h1 {
-    font-size: 36px;
-    color: #e83e8c;  /* Matching soft teal for the title */
-}
-
-.main-content p {
-    font-size: 18px;
-    color: #666; /* Slightly darker text for readability */
+    border-color: #ef80ae
 }
 
 /* Footer style */
 .footer {
-    background-color: #e83e8c;
+    background-color: #b8e0d2;
     color: white;
     text-align: center;
     padding: 20px;
@@ -170,7 +89,7 @@ html, body {
 .newsletter-form button {
     padding: 12px 30px;
     border-radius: 25px;
-    background-color: #ff4d8c;
+    background-color: #b8e0d2;
     color: white;
     border: none;
     cursor: pointer;
@@ -199,42 +118,6 @@ html, body {
     margin-bottom: 12px;
 }
 
-.footer-section ul li a,
-.footer-section ul li {
-    color: #999;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-    color: #ff4d8c;
-}
-
-.contact-info p {
-    color: #999;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-
-.social-links {
-    margin-top: 30px;
-}
-
-.social-icons {
-    display: flex;
-    gap: 15px;
-}
-
-.social-icons a {
-    color: white;
-    font-size: 20px;
-    transition: color 0.3s ease;
-}
-
-.social-icons a:hover {
-    color: #ff4d8c;
-}
-
 @media (max-width: 1024px) {
     .footer-content {
         grid-template-columns: 1fr 1fr;
@@ -251,27 +134,11 @@ html, body {
         gap: 20px;
         text-align: center;
     }
-
-    .footer-newsletter {
-        flex-direction: column;
-    }
-
-    .newsletter-form {
-        flex-direction: column;
-    }
-
-    .newsletter-form input {
-        width: 100%;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* Button styling */
 button {
-    background-color: #e83e8c; /* Light pink for a delicate, feminine touch */
+    background-color: #ef80ae; /* Changed from #b8e0d2 */
     color: white;
     padding: 10px 20px;
     border: none;
@@ -282,7 +149,7 @@ button {
 }
 
 button:hover {
-    background-color: #ff97c8;  /* Slightly darker pink on hover */
+    background-color: #e66a9c;  /* Slightly darker shade of #ef80ae */
 }
 
 /* Success and Error messages */
@@ -338,7 +205,7 @@ button:hover {
   }
 
   .modal-content h3 {
-    color: #e83e8c;
+    color: #ef80ae;
     margin-bottom: 15px;
   }
 
@@ -365,7 +232,7 @@ button:hover {
   }
 
   .modal-buttons button:first-child {
-    background-color: #e83e8c;
+    background-color: #ef80ae;
     color: white;
   }
 
@@ -385,7 +252,7 @@ button:hover {
   }
 
   .admin-verification h2 {
-    color: #e83e8c;
+    color: #ef80ae;
     margin-bottom: 15px;
   }
 
@@ -471,12 +338,12 @@ button:hover {
   /* Ensure the eye icon doesn't interfere with input */
   .password-input-container input:focus {
     outline: none;
-    border-color: #e83e8c;
+    border-color: #ef80ae; /* Changed from previous color */
   }
 
   /* Style for the icon when input is focused */
   .password-input-container input:focus ~ .password-toggle {
-    color: #e83e8c;
+    color: #ef80ae; /* Changed from previous color */
   }
 
   /* Override any default button styles */
@@ -491,12 +358,7 @@ button:hover {
     margin: 0 auto;
     padding: 0 20px;
   }
-
-  .main-content {
-    min-height: calc(100vh - 160px); /* Adjust based on header/footer height */
-    background-color: #f9f9f9;
-  }
-
+  
   .hero-section {
     height: 100vh;
     position: relative;
@@ -553,7 +415,7 @@ button:hover {
   }
 
   .primary-btn {
-    background: #e83e8c;
+    background: #ef80ae;
     color: white;
     border: none;
   }
@@ -625,7 +487,7 @@ button:hover {
   .page-header {
     text-align: center;
     margin-bottom: 50px;
-    color: #e83e8c;
+    color: #ef80ae;
   }
 
   .page-header h1 {
@@ -669,7 +531,7 @@ button:hover {
 
   .faq-question {
     font-weight: 600;
-    color: #e83e8c;
+    color: #ef80ae;
     margin-bottom: 10px;
   }
 
@@ -709,7 +571,7 @@ button:hover {
   }
 
   .blog-title {
-    color: #e83e8c;
+    color: #ef80ae;
     margin-bottom: 10px;
   }
 
@@ -750,7 +612,7 @@ button:hover {
   .form-group input:focus,
   .form-group textarea:focus {
     outline: none;
-    border-color: #e83e8c;
+    border-color: #ef80ae;
   }
 
   /* Policy Pages Styles */
@@ -765,7 +627,7 @@ button:hover {
   }
 
   .policy-section h2 {
-    color: #e83e8c;
+    color: #ef80ae;
     margin-bottom: 15px;
   }
 
@@ -821,7 +683,7 @@ button:hover {
   }
 
   .team-member h3 {
-    color: #e83e8c;
+    color: #ef80ae;
     margin-bottom: 5px;
   }
 
@@ -841,7 +703,7 @@ button:hover {
   }
 
   .shipping-rates th {
-    background-color: #e83e8c;
+    background-color: #ef80ae;
     color: white;
     padding: 15px;
     text-align: left;
@@ -865,7 +727,7 @@ button:hover {
   }
 
   .shipping-rates td:last-child {
-    color: #e83e8c;
+    color: #ef80ae;
     font-weight: 600;
   }
 
@@ -888,7 +750,7 @@ button:hover {
     display: inline-block;
     padding: 4px 12px;
     background-color: #fce4ec;
-    color: #e83e8c;
+    color: #ef80ae;
     border-radius: 15px;
     font-size: 0.85rem;
     margin-bottom: 10px;
@@ -910,7 +772,7 @@ button:hover {
 
   .read-more {
     padding: 8px 16px;
-    background-color: #e83e8c;
+    background-color: #ef80ae;
     color: white;
     border: none;
     border-radius: 20px;
@@ -958,7 +820,7 @@ button:hover {
   }
 
   .back-link:hover {
-    color: #e83e8c;
+    color: #ef80ae;
   }
 
   .blog-post-header {
@@ -985,7 +847,7 @@ button:hover {
   }
 
   .blog-section h2 {
-    color: #e83e8c;
+    color: #ef80ae;
     font-size: 1.8rem;
     margin-bottom: 20px;
     padding-bottom: 10px;
@@ -1021,7 +883,7 @@ button:hover {
   }
 
   .about-story h2 {
-    color: #e83e8c;
+    color: #ef80ae;
     font-size: 2.5rem;
     margin-bottom: 30px;
     font-weight: 700;
@@ -1045,7 +907,7 @@ button:hover {
   }
 
   .mission-section h2 {
-    color: #e83e8c;
+    color: #ef80ae;
     font-size: 2rem;
     margin-bottom: 20px;
     text-align: center;
@@ -1064,7 +926,7 @@ button:hover {
   }
 
   .values-section h2 {
-    color: #e83e8c;
+    color: #ef80ae;
     font-size: 2rem;
     text-align: center;
     margin-bottom: 30px;
@@ -1092,7 +954,7 @@ button:hover {
 
   .value-item i {
     font-size: 2rem;
-    color: #e83e8c;
+    color: #ef80ae;
     margin-bottom: 15px;
   }
 
@@ -1114,7 +976,7 @@ button:hover {
   }
 
   .team-section h2 {
-    color: #e83e8c;
+    color: #ef80ae;
     font-size: 2rem;
     margin-bottom: 40px;
   }
@@ -1147,7 +1009,7 @@ button:hover {
   }
 
   .team-member h3 {
-    color: #e83e8c;
+    color: #ef80ae;
     font-size: 1.4rem;
     margin-bottom: 10px;
   }
@@ -1248,7 +1110,7 @@ button:hover {
   }
 
   .muskan-image {
-    background-image: url('../../images/samra2.jpeg');
+    background-image: url('../../images/muskan.jpeg');
   }
 
   .amna-image {

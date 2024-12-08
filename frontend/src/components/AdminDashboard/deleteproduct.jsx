@@ -1,9 +1,10 @@
 // src/components/AdminDashboard/deleteproduct.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import Footer from '../auth/Footer';
+import Footer from './Footer';
 import './admin.css';
+import Header from './Header';
+import { FaTrashAlt } from 'react-icons/fa'; // Import the trash icon
 
 const DeleteProducts = () => {
   const [products, setProducts] = useState([]);
@@ -60,27 +61,10 @@ const DeleteProducts = () => {
 
   return (
     <div className="home-container">
-      {/* Header */}
-      <header className="admin-header">
-        <div className="logo">SAM E-GlowCo Admin</div>
-        <nav>
-          <ul className="admin-nav-list">
-            <li><Link to="/admin-dashboard" className="admin-nav-link">Dashboard</Link></li>
-            <li><Link to="/product_manage" className="admin-nav-link">Manage Products</Link></li>
-            <li><Link to="/order_manage" className="admin-nav-link">Manage Orders</Link></li>
-            <li><Link to="/transaction_manage" className="admin-nav-link">Manage Transactions</Link></li>
-            <li><Link to="/analytics" className="admin-nav-link">Analytics</Link></li>
-            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
-            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
-          </ul>
-        </nav>
-      </header>
-
-      {/* Main Content */}
+      <Header />
       <main className="main-content">
         <h1>Products</h1>
 
-        {/* Success or Error Message */}
         {message && <p className="message">{message}</p>}
 
         {/* Search and Filter Section */}
@@ -106,11 +90,29 @@ const DeleteProducts = () => {
           </div>
         </div>
 
-        {/* Product Grid */}
+        {/* Updated Product Grid */}
         <div className="product-grid">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div className="product-card" key={product._id}>
+                <div className="product-card-header">
+                  <FaTrashAlt 
+                    className="delete-icon"
+                    onClick={() => deleteProduct(product.name)}
+                    style={{
+                      position: 'absolute',
+                      top: '10px',
+                      right: '10px',
+                      cursor: 'pointer',
+                      color: '#ef80ae',
+                      fontSize: '1.2rem',
+                      transition: 'color 0.3s ease',
+                      zIndex: 1
+                    }}
+                    onMouseEnter={(e) => e.target.style.color = '#d6678f'}
+                    onMouseLeave={(e) => e.target.style.color = '#ef80ae'}
+                  />
+                </div>
                 <img
                   src={`http://localhost:3001/uploads/${product.image}`}
                   alt={product.name}
@@ -121,11 +123,6 @@ const DeleteProducts = () => {
                 <p><strong>Price:</strong> ${product.price}</p>
                 <p><strong>Category:</strong> {product.category}</p>
                 <p><strong>Stock:</strong> {product.stock}</p>
-
-                {/* Delete Button */}
-                <button onClick={() => deleteProduct(product.name)} className="delete-btn">
-                  Delete Product
-                </button>
               </div>
             ))
           ) : (
@@ -133,9 +130,6 @@ const DeleteProducts = () => {
           )}
         </div>
       </main>
-
-      {/* Footer */}
-      {/* Footer */}
       <Footer />
     </div>
   );

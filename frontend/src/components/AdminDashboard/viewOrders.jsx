@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import Footer from '../auth/Footer';
+import { useNavigate } from 'react-router-dom';
+import Footer from './Footer';
+import { FaEdit } from 'react-icons/fa';  // Import edit icon
+import Header from './Header';
 const ViewOrder = () => {
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,20 +68,8 @@ const ViewOrder = () => {
 
   return (
     <div className="home-container">
-      <header className="admin-header">
-        <div className="logo">SAM E-GlowCo Admin</div>
-        <nav>
-          <ul className="admin-nav-list">
-            <li><Link to="/admin-dashboard" className="admin-nav-link">Dashboard</Link></li>
-            <li><Link to="/product_manage" className="admin-nav-link">Manage Products</Link></li>
-            <li><Link to="/order_manage" className="admin-nav-link">Manage Orders</Link></li>
-            <li><Link to="/transaction_manage" className="admin-nav-link">Manage Transactions</Link></li>
-            <li><Link to="/analytics" className="admin-nav-link">Analytics</Link></li>
-            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
-            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
-          </ul>
-        </nav>
-      </header>
+     <Header />
+
 
       <main>
         <h1>View Orders</h1>
@@ -126,22 +117,28 @@ const ViewOrder = () => {
             <ul className="order-list">
               {filteredOrders.map((order) => (
                 <li key={order._id} className="order-box">
-                  {/* Order ID */}
-                  <div className="order-id">
-                    <h3>{order.orderID}</h3>
+                  <div className="order-header">
+                    <div className="order-id">
+                      <h3>{order.orderID}</h3>
+                    </div>
+                    <div className="order-actions">
+                      <button
+                        onClick={() => navigate(`/order_status/${order._id}`)}
+                        className="update-status-btn"
+                      >
+                        <FaEdit /> Update
+                      </button>
+                      <span 
+                        onClick={() => toggleOrderSummary(order._id)}
+                        className="toggle-summary"
+                      >
+                        {orderSummaryVisibility[order._id] ? 'Hide Details ▼' : 'Show Details ▶'}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Toggle Order Summary */}
-                  <button
-                    onClick={() => toggleOrderSummary(order._id)}
-                    className="toggle-summary-btn"
-                  >
-                    {orderSummaryVisibility[order._id] ? "Hide Order Summary" : "Show Order Summary"}
-                  </button>
-
-                  {/* Conditional Order Summary Rendering */}
                   {orderSummaryVisibility[order._id] && (
-                    <div className="order-summary">
+                    <div className="order-details">
                       <h3>Order Summary</h3>
                       {order.orderItems.map((item, index) => (
                         <div key={index} className="order-item">
@@ -202,9 +199,7 @@ const ViewOrder = () => {
                     <p><strong>Status:</strong> {order.orderStatus}</p>
                     <p><strong>Delivered:</strong> {order.isDelivered ? `Yes, at ${order.deliveredAt}` : 'No'}</p>
                 </div>
-                <div className="order-total">
-                  <strong>Total Price: ${order.totalPrice.toFixed(2)}</strong>
-                </div>
+                
                 </li>
             ))}
             </ul>

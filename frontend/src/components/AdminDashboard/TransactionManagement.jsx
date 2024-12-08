@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import './admin.css';
-import Footer from '../auth/Footer';
+import Footer from './Footer';
+import Header from './Header';
 const TransactionManagement = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -97,87 +97,121 @@ const TransactionManagement = () => {
 
   return (
     <div className="home-container">
-      <header className="admin-header">
-        <div className="logo">SAM E-GlowCo Admin</div>
-        <nav>
-          <ul className="admin-nav-list">
-            <li><Link to="/admin-dashboard" className="admin-nav-link">Dashboard</Link></li>
-            <li><Link to="/product_manage" className="admin-nav-link">Manage Products</Link></li>
-            <li><Link to="/order_manage" className="admin-nav-link">Manage Orders</Link></li>
-            <li><Link to="/transaction_manage" className="admin-nav-link">Manage Transactions</Link></li>
-            <li><Link to="/analytics" className="admin-nav-link">Analytics</Link></li>
-            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
-            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
-          </ul>
-        </nav>
-      </header>
+      <Header />
 
       <main className="main-content">
         <h1 className="page-title">Transaction History</h1>
-
-        <div className="transaction-stats">
-          <div className="stats-card">
-            <h3>Total Transactions</h3>
-            <p className="stats-number">{transactions.length}</p>
+        <div className="transaction-stats" style={{display: 'flex', gap: '20px', justifyContent: 'space-between', margin: '20px 0'}}>
+          <div className="stats-card" style={{flex: 1, padding: '15px', borderRadius: '8px', backgroundColor: '#f5f5f5', textAlign: 'center'}}>
+            <h3 style={{margin: '0 0 10px 0'}}>Total Transactions</h3>
+            <p className="stats-number" style={{fontSize: '24px', fontWeight: 'bold', margin: 0}}>{transactions.length}</p>
           </div>
-          <div className="stats-card">
-            <h3>Total Amount</h3>
-            <p className="stats-number">
-              ${transactions.reduce((sum, t) => sum + (t.amount || 0), 0).toFixed(2)}
-            </p>
+          <div className="stats-card" style={{flex: 1, padding: '15px', borderRadius: '8px', backgroundColor: '#f5f5f5', textAlign: 'center'}}>
+            <h3 style={{margin: '0 0 10px 0'}}>Total Amount</h3>
+            <p className="stats-number" style={{fontSize: '24px', fontWeight: 'bold', margin: 0}}>${transactions.reduce((sum, t) => sum + (t.amount || 0), 0).toFixed(2)}</p>
           </div>
-          <div className="stats-card">
-            <h3>Completed Payments</h3>
-            <p className="stats-number">
-              {transactions.filter(t => t.status === 'completed').length}
-            </p>
+          <div className="stats-card" style={{flex: 1, padding: '15px', borderRadius: '8px', backgroundColor: '#f5f5f5', textAlign: 'center'}}>
+            <h3 style={{margin: '0 0 10px 0'}}>Completed Payments</h3>
+            <p className="stats-number" style={{fontSize: '24px', fontWeight: 'bold', margin: 0}}>{transactions.filter(t => t.status === 'completed').length}</p>
           </div>
-          <div className="stats-card">
-            <h3>Refunded Payments</h3>
-            <p className="stats-number">
-              {transactions.filter(t => t.status === 'refunded').length}
-            </p>
-          </div>
-        </div>
-
-        <div className="filters-section">
-          <input
-            type="text"
-            placeholder="Search by Order ID, Customer Name, or Email"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="status-filter"
-          >
-            <option value="all">All Statuses</option>
-            <option value="completed">Completed</option>
-            <option value="pending">Pending</option>
-            <option value="refunded">Refunded</option>
-          </select>
-
-          <div className="date-filters">
-            <input
-              type="date"
-              value={dateRange.start}
-              onChange={(e) => setDateRange(prev => ({ ...prev, start: e.target.value }))}
-              className="date-input"
-            />
-            <span>to</span>
-            <input
-              type="date"
-              value={dateRange.end}
-              onChange={(e) => setDateRange(prev => ({ ...prev, end: e.target.value }))}
-              className="date-input"
-            />
+          <div className="stats-card" style={{flex: 1, padding: '15px', borderRadius: '8px', backgroundColor: '#f5f5f5', textAlign: 'center'}}>
+            <h3 style={{margin: '0 0 10px 0'}}>Refunded Payments</h3>
+            <p className="stats-number" style={{fontSize: '24px', fontWeight: 'bold', margin: 0}}>{transactions.filter(t => t.status === 'refunded').length}</p>
           </div>
         </div>
 
         <div className="table-container">
+          <div className="filters-section" style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            marginBottom: '20px',
+            padding: '15px',
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+          }}>
+            {/* Search Filter */}
+            <div className="search-filter" style={{ flex: '2' }}>
+              <input
+                type="text"
+                placeholder="Search by Order ID, Customer Name, or Email"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  width: '100%',
+                  height: '40px',  // Fixed height
+                  padding: '8px 12px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  fontSize: '14px'
+                }}
+              />
+            </div>
+
+            {/* Group status and date filters together */}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '25px',
+              flex: '1'
+            }}>
+              {/* Status Filter */}
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                style={{
+                  height: '40px',  // Fixed height
+                  padding: '8px 12px',
+                  borderRadius: '4px',
+                  border: '1px solid #ddd',
+                  width: '150px',  // Fixed width
+                  fontSize: '14px'
+                }}
+              >
+                <option value="all">All Statuses</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="refunded">Refunded</option>
+              </select>
+
+              {/* Date Range Filter */}
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '8px'
+              }}>
+                <input
+                  type="date"
+                  value={dateRange.start}
+                  onChange={(e) => setDateRange(prev => ({ ...prev, start: e.target.value }))}
+                  style={{
+                    height: '40px',  // Fixed height
+                    width: '150px',  // Fixed width
+                    padding: '8px 12px',
+                    borderRadius: '4px',
+                    border: '1px solid #ddd',
+                    fontSize: '14px'
+                  }}
+                />
+                <span>to</span>
+                <input
+                  type="date"
+                  value={dateRange.end}
+                  onChange={(e) => setDateRange(prev => ({ ...prev, end: e.target.value }))}
+                  style={{
+                    height: '40px',  // Fixed height
+                    width: '150px',  // Fixed width
+                    padding: '8px 12px',
+                    borderRadius: '4px',
+                    border: '1px solid #ddd',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
           <table className="transaction-table">
             <thead>
               <tr>

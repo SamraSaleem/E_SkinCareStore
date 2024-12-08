@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import './admin.css';
-import Footer from '../auth/Footer';
+import Footer from './Footer';
+import Header from './Header';
 const RefundReports = () => {
   const [refundStats, setRefundStats] = useState({
     totalRefunds: 0,
@@ -39,43 +39,30 @@ const RefundReports = () => {
 
   return (
     <div className="home-container">
-      <header className="admin-header">
-        <div className="logo">SAM E-GlowCo Admin</div>
-        <nav>
-          <ul className="admin-nav-list">
-            <li><Link to="/admin-dashboard" className="admin-nav-link">Dashboard</Link></li>
-            <li><Link to="/product_manage" className="admin-nav-link">Manage Products</Link></li>
-            <li><Link to="/order_manage" className="admin-nav-link">Manage Orders</Link></li>
-            <li><Link to="/transaction_manage" className="admin-nav-link">Manage Transactions</Link></li>
-            <li><Link to="/analytics	" className="admin-nav-link">Analytics</Link></li>
-            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
-            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
-          </ul>
-        </nav>
-      </header>
+     <Header />
 
       <main className="main-content">
-        <h1 className="page-title">Refund Reports & Statistics</h1>
+        <h1 className="page-title">Refund Reports and Statistics</h1>
 
-        <div className="stats-grid">
-          <div className="stats-card">
-            <h3>Total Refunds</h3>
-            <p className="stats-number">{refundStats.totalRefunds}</p>
+        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'space-between', margin: '20px 0' }}>
+          <div style={{ flex: '1', minWidth: '200px', padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+            <h3 style={{ margin: '0 0 10px 0', fontSize: '16px', color: '#666' }}>Total Refunds</h3>
+            <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#333' }}>{refundStats.totalRefunds}</p>
           </div>
 
-          <div className="stats-card">
-            <h3>Pending Refunds</h3>
-            <p className="stats-number">{refundStats.pendingRefunds}</p>
+          <div style={{ flex: '1', minWidth: '200px', padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+            <h3 style={{ margin: '0 0 10px 0', fontSize: '16px', color: '#666' }}>Pending Refunds</h3>
+            <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#333' }}>{refundStats.pendingRefunds}</p>
           </div>
 
-          <div className="stats-card">
-            <h3>Completed Refunds</h3>
-            <p className="stats-number">{refundStats.completedRefunds}</p>
+          <div style={{ flex: '1', minWidth: '200px', padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+            <h3 style={{ margin: '0 0 10px 0', fontSize: '16px', color: '#666' }}>Completed Refunds</h3>
+            <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#333' }}>{refundStats.completedRefunds}</p>
           </div>
 
-          <div className="stats-card">
-            <h3>Total Refund Amount</h3>
-            <p className="stats-number">${refundStats.totalRefundAmount.toFixed(2)}</p>
+          <div style={{ flex: '1', minWidth: '200px', padding: '20px', backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+            <h3 style={{ margin: '0 0 10px 0', fontSize: '16px', color: '#666' }}>Total Refund Amount</h3>
+            <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#333' }}>${refundStats.totalRefundAmount.toFixed(2)}</p>
           </div>
         </div>
 

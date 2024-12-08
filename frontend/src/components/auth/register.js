@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './auth.css';
-import Footer from './Footer';
+import Footer from '../AdminDashboard/Footer';
+import HomeHeader from './homeHeader';
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -12,6 +13,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+  const [focusedField, setFocusedField] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -71,20 +73,9 @@ const Register = () => {
 
   return (
     <div className="home-container">
-      <header className="header">
-        <div className="logo">SAM E-GlowCo</div>
-        <nav>
-          <ul className="nav-list">
-            <li><a href="/" className="nav-link">Home</a></li>
-            <li><a href="/register" className="nav-link">Register</a></li>
-            <li><a href="/login" className="nav-link">Login</a></li>
-            <li><a href="/about" style={{ color: 'white', textDecoration: 'none' }}>About Us</a></li>
-            <li><a href="/contact" style={{ color: 'white', textDecoration: 'none' }}>Contact Us</a></li>
-          </ul>
-        </nav>
-      </header>
+      <HomeHeader />
 
-      <main className="main-content">
+      <main style={{ color: '#ef80ae',display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '3rem', marginBottom: '5rem' }}>
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
           <input
@@ -94,6 +85,7 @@ const Register = () => {
             onChange={handleChange}
             placeholder="Name"
             required
+            style={{ border: '2px solid #ef80ae', color: formData.name ? 'black' : '#999' }}
           />
           {errors.name && <div className="error-box"><span>Error:</span> {errors.name}</div>}
 
@@ -104,6 +96,7 @@ const Register = () => {
             onChange={handleChange}
             placeholder="Email"
             required
+            style={{ border: '2px solid #ef80ae', color: formData.email ? 'black' : '#999' }}
           />
           {errors.email && <div className="error-box"><span>Error:</span> {errors.email}</div>}
 
@@ -115,6 +108,12 @@ const Register = () => {
               onChange={handleChange}
               placeholder="Password"
               required
+              onFocus={() => setFocusedField('password')}
+              onBlur={() => setFocusedField('')}
+              style={{ 
+                border: `2px solid ${focusedField === 'password' ? 'black' : '#ef80ae'}`,
+                color: formData.password ? 'black' : '#999'
+              }}
             />
             <button 
               type="button"
@@ -125,6 +124,7 @@ const Register = () => {
                 setShowPassword(!showPassword);
               }}
               tabIndex="-1"
+              style={{ backgroundColor: 'transparent', border: 'none' }}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
@@ -136,6 +136,12 @@ const Register = () => {
             value={formData.role}
             onChange={handleChange}
             required
+            onFocus={() => setFocusedField('role')}
+            onBlur={() => setFocusedField('')}
+            style={{ 
+              border: `2px solid ${focusedField === 'role' ? 'black' : '#ef80ae'}`,
+              color: formData.role ? 'black' : '#999'
+            }}
           >
             <option value="user">User</option>
             <option value="seller">Seller</option>
@@ -144,7 +150,7 @@ const Register = () => {
 
           {errors.general && <div className="error-box"><span>Error:</span> {errors.general}</div>}
           
-          <button type="submit">Register</button>
+          <button type="submit" style={{ backgroundColor: '#ef80ae' }}>Register</button>
         </form>
 
         {successMessage && <p className="success-message">{successMessage}</p>}
