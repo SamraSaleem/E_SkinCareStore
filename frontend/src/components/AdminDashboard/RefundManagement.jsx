@@ -50,14 +50,9 @@ const RefundManagement = () => {
       const token = localStorage.getItem('token');
       await axios.patch(
         `http://localhost:3001/api/orders/refund/${orderId}`,
-        {
-          action,
-          refundAmount: amount
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
-      );
+        { action, refundAmount: amount },
+        { headers: { Authorization: `Bearer ${token}` } }
+    );
       
       // Update the local state
       setRefundRequests(prevRequests =>
